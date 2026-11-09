@@ -1,0 +1,221 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --muted: #e9eef5;
+  --muted-foreground: #475569;
+  --primary: #1e3a5f;
+  --primary-foreground: #ffffff;
+  --primary-soft: #e3ecf6;
+  --accent: #b45309;
+  --accent-foreground: #ffffff;
+  --border: #cbd5e1;
+  --ring: #1e3a5f;
+  --destructive: #dc2626;
+  --success: #15803d;
+  --warning: #b45309;
+  --refchip: #f3e8d8;
+}
+
+.dark {
+  --background: #0b1220;
+  --foreground: #e2e8f0;
+  --card: #111a2c;
+  --card-foreground: #e2e8f0;
+  --muted: #1a2438;
+  --muted-foreground: #94a3b8;
+  --primary: #2c4a73;
+  --primary-foreground: #f1f5f9;
+  --primary-soft: #16283f;
+  --accent: #e8a03c;
+  --accent-foreground: #1a1002;
+  --border: #24324a;
+  --ring: #7fa8d9;
+  --destructive: #f87171;
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --refchip: #2a2415;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-refchip: var(--refchip);
+  --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, "Microsoft YaHei", sans-serif;
+  --font-serif: var(--font-crimson), Georgia, "Songti SC", "SimSun", serif;
+}
+
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* 综述 Markdown 排版 */
+.survey-md {
+  font-size: 1rem;
+  line-height: 1.85;
+}
+.survey-md h1,
+.survey-md h2,
+.survey-md h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 1.6em 0 0.6em;
+  line-height: 1.35;
+}
+.survey-md h1 { font-size: 1.7rem; }
+.survey-md h2 { font-size: 1.35rem; border-bottom: 1px solid var(--border); padding-bottom: 0.35em; }
+.survey-md h3 { font-size: 1.12rem; }
+.survey-md p { margin: 0.7em 0; }
+.survey-md table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.1em 0;
+  font-size: 0.9rem;
+}
+.survey-md th {
+  background: var(--muted);
+  font-weight: 700;
+  text-align: left;
+}
+.survey-md th,
+.survey-md td {
+  border: 1px solid var(--border);
+  padding: 0.5em 0.75em;
+  vertical-align: top;
+}
+.survey-md ul,
+.survey-md ol {
+  padding-left: 1.5em;
+  margin: 0.6em 0;
+}
+.survey-md ul { list-style: disc; }
+.survey-md ol { list-style: decimal; }
+.survey-md li { margin: 0.3em 0; }
+.survey-md blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1em;
+  color: var(--muted-foreground);
+  margin: 0.8em 0;
+}
+.survey-md code {
+  background: var(--muted);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+  font-size: 0.88em;
+}
+.survey-md hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.5em 0;
+}
+
+/* 引用 chip */
+.refchip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5em;
+  height: 1.35em;
+  padding: 0 0.35em;
+  margin: 0 0.15em;
+  border-radius: 6px;
+  background: var(--refchip);
+  color: var(--accent);
+  font-size: 0.78em;
+  font-weight: 700;
+  cursor: pointer;
+  vertical-align: 0.12em;
+  transition: all 0.18s ease;
+  border: 1px solid transparent;
+}
+.refchip:hover,
+.refchip.refchip-active {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  transform: translateY(-1px);
+}
+
+/* 未通过核验的引用上标：琥珀警示态 */
+.refchip.refchip-fail {
+  background: color-mix(in srgb, var(--warning) 18%, transparent);
+  border-color: color-mix(in srgb, var(--warning) 55%, transparent);
+  color: var(--warning);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+.refchip.refchip-fail:hover,
+.refchip.refchip-fail.refchip-active {
+  background: var(--warning);
+  color: var(--background);
+}
+
+/* 运行中脉冲 */
+@keyframes node-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 45%, transparent); }
+  50% { box-shadow: 0 0 0 7px transparent; }
+}
+.node-running {
+  animation: node-pulse 1.6s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.dot-blink {
+  animation: blink 1.2s ease-in-out infinite;
+}
+
+/* writer 流式光标 */
+.stream-cursor::after {
+  content: "▍";
+  color: var(--accent);
+  animation: blink 1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node-running, .dot-blink, .stream-cursor::after {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 滚动条 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}

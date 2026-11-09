@@ -1,0 +1,25 @@
+services:
+  frontend:
+    build: .
+    image: literesearch-frontend
+    container_name: literesearch-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      # 后端跑在宿主机（Windows/macOS 的 Docker Desktop 自动解析 host.docker.internal；
+      # Linux 需下方 extra_hosts）。后端容器化后改为 http://backend:8000
+      BACKEND_URL: http://host.docker.internal:8000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  # 可选：后端也容器化时取消注释，并把上方 BACKEND_URL 改为 http://backend:8000
+  # backend:
+  #   build: ./backend
+  #   container_name: literesearch-backend
+  #   ports:
+  #     - "8000:8000"
+  #   env_file: ../.env
+  #   volumes:
+  #     - ../backend/data:/app/backend/data   # 会话/核验数据库与 PDF 落盘持久化
+  #   restart: unless-stopped

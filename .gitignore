@@ -1,0 +1,55 @@
+# ===== 密钥 / 环境变量 =====
+.env
+.env.*
+!.env.example
+
+# ===== Python =====
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# ===== Node / Next.js =====
+node_modules/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+npm-debug.log*
+yarn-*.log*
+pnpm-debug.log*
+
+# ===== 运行数据（数据库 / PDF / 向量库）=====
+backend/data/
+*.sqlite
+*.sqlite3
+*.db
+
+# ===== 文档二进制与生成物 =====
+docs/**/*.docx
+docs/**/*.pdf
+docs/copyright/
+# 软著材料生成脚本（含公司署名）
+tools/
+
+# ===== 压缩包与重复版本 =====
+*.zip
+无登录认证版本/
+
+# ===== IDE / 系统文件 =====
+.trae/
+.vscode/
+.idea/
+*.code-workspace
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== 日志 =====
+*.log
+
+# ===== 前端嵌套 Git 备份 =====
+frontend/.git.bak/

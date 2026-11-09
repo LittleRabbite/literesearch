@@ -1,0 +1,72 @@
+{
+  "_comment": "演示黄金集（专家等级：3=必读 2=相关 1=沾边 0=无关）。正式评估请按设计文档扩展为 30~50 个主题、由领域专家标注 duplicate_pairs 用于去重阈值校准。",
+  "items": [
+    {
+      "input": {
+        "topic": "检索增强生成 RAG",
+        "candidate_pool": [
+          {"id": "p01", "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks", "year": 2020, "abstract": "Lewis et al. 提出 RAG：将参数化 seq2seq 记忆与非参数化向量检索（DPR + BART）结合，在知识密集型 NLP 任务上取得 SOTA，生成内容更具体多样。"},
+          {"id": "p02", "title": "Active Retrieval Augmented Generation", "year": 2023, "abstract": "Mallen et al. 提出 Forward-Active RAG（FLARE），在生成过程中根据低置信度 token 主动触发检索，跨多跳知识任务提升效果。"},
+          {"id": "p03", "title": "Self-RAG: Learning to Retrieve, Generate, and Critique through Self-Reflection", "year": 2023, "abstract": "Asai et al. 训练 LLM 按需检索并生成反思 token 自评检索与生成质量，提升事实性而牺牲少量通用性能。"},
+          {"id": "p04", "title": "RAGAS: Automated Evaluation of Retrieval Augmented Generation", "year": 2023, "abstract": "Es et al. 提出面向 RAG 系统的无参考自动化评估框架，定义忠实度、答案相关性、上下文精确率等指标。"},
+          {"id": "p05", "title": "Lost in the Middle: How Language Models Use Long Contexts", "year": 2023, "abstract": "Liu et al. 发现长上下文模型对位置敏感，关键信息在中间时性能显著下降，对 RAG 的上下文编排有直接指导意义。"},
+          {"id": "p06", "title": "Dense Passage Retrieval for Open-Domain Question Answering", "year": 2020, "abstract": "Karpukhin et al. 提出 DPR，用双塔稠密编码器做段落检索，以对比学习目标训练，大幅超越 BM25，是 RAG 检索端基础组件。"},
+          {"id": "p07", "title": "Attention Is All You Need", "year": 2017, "abstract": "Vaswani et al. 提出 Transformer 架构，完全基于注意力机制建模序列依赖，是所有现代 LLM 的基础。"},
+          {"id": "p08", "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding", "year": 2019, "abstract": "Devlin et al. 提出双向 Transformer 预训练表示 BERT，刷新 11 项 NLU 任务纪录。"},
+          {"id": "p09", "title": "Generative Adversarial Networks", "year": 2014, "abstract": "Goodfellow et al. 提出通过生成器与判别器对抗训练的生成模型框架 GAN。"},
+          {"id": "p10", "title": "ImageNet Classification with Deep Convolutional Neural Networks", "year": 2012, "abstract": "Krizhevsky et al. 提出 AlexNet，在 ImageNet 上大幅领先传统方法，开启深度学习视觉浪潮。"},
+          {"id": "p11", "title": "Retrieval-Augmented Generation for Large Language Models: A Survey", "year": 2023, "abstract": "Gao et al. 系统综述 RAG 在 LLM 时代的发展，按 Naive/Advanced/Modular 三阶段梳理范式，并讨论评估与未来方向。"}
+        ]
+      },
+      "expected_output": [
+        {"paper_id": "p01", "grade": 3},
+        {"paper_id": "p02", "grade": 3},
+        {"paper_id": "p03", "grade": 3},
+        {"paper_id": "p11", "grade": 3},
+        {"paper_id": "p04", "grade": 2},
+        {"paper_id": "p05", "grade": 2},
+        {"paper_id": "p06", "grade": 2},
+        {"paper_id": "p07", "grade": 1},
+        {"paper_id": "p08", "grade": 1},
+        {"paper_id": "p09", "grade": 0},
+        {"paper_id": "p10", "grade": 0}
+      ]
+    },
+    {
+      "input": {
+        "topic": "大语言模型幻觉缓解",
+        "candidate_pool": [
+          {"id": "p01", "title": "Survey of Hallucination in Natural Language Generation", "year": 2023, "abstract": "Ji et al. 系统梳理 NLG 幻觉的分类（内在/外在）、成因与度量指标，是幻觉领域的奠基综述。"},
+          {"id": "p02", "title": "SelfCheckGPT: Zero-Resource Black-Box Hallucination Detection for Generative Large Language Models", "year": 2023, "abstract": "Manakul et al. 利用同一 LLM 自采样并用自身校验事实一致性，无需外部知识即可检测幻觉句子。"},
+          {"id": "p03", "title": "Chain-of-Verification Reduces Hallucination in Large Language Models", "year": 2023, "abstract": "Dhuliawala et al. 提出 CoVe：LLM 先拟草稿、自生成验证问题、独立回答后修订，显著降低事实性错误。"},
+          {"id": "p04", "title": "Siren's Song in the AI Ocean: A Survey on Hallucination in Large Language Models", "year": 2023, "abstract": "Zhang et al. 面向 LLM 的幻觉综述，按数据、训练、推理三阶段归因，并总结缓解方法与基准。"},
+          {"id": "p05", "title": "RARR: Research and Revise for Reliable Post-Hoc Attribution of Language Models", "year": 2023, "abstract": "Gao et al. 提出事后修订框架：检索证据定位并改写不可支撑片段，同时尽量保持原输出。"},
+          {"id": "p06", "title": "Training language models to follow instructions with human feedback", "year": 2022, "abstract": "Ouyang et al. 提出 InstructGPT，通过 RLHF 对齐人类意图，间接降低无事实依据输出。"},
+          {"id": "p07", "title": "PaLM: Scaling Language Modeling with Pathways", "year": 2022, "abstract": "Chowdhery et al. 训练 5400B 参数语言模型 PaLM，展示跨任务强泛化能力。"},
+          {"id": "p08", "title": "Highly accurate protein structure prediction with AlphaFold", "year": 2021, "abstract": "Jumper et al. 提出 AlphaFold2，将蛋白质结构预测精度提升至实验级别。"},
+          {"id": "p09", "title": "Deep Residual Learning for Image Recognition", "year": 2016, "abstract": "He et al. 提出残差连接 ResNet，使超深卷积网络可稳定训练。"},
+          {"id": "p10", "title": "Zero-Shot Text-to-Image Generation", "year": 2021, "abstract": "Ramesh et al. 提出 DALL-E，用自回归 Transformer 从文本生成图像。"}
+        ]
+      },
+      "expected_output": [
+        {"paper_id": "p01", "grade": 3},
+        {"paper_id": "p02", "grade": 3},
+        {"paper_id": "p03", "grade": 3},
+        {"paper_id": "p04", "grade": 3},
+        {"paper_id": "p05", "grade": 2},
+        {"paper_id": "p06", "grade": 1},
+        {"paper_id": "p07", "grade": 1},
+        {"paper_id": "p08", "grade": 0},
+        {"paper_id": "p09", "grade": 0},
+        {"paper_id": "p10", "grade": 0}
+      ]
+    }
+  ],
+  "duplicate_pairs": [
+    {"a": "p01", "b": "p11", "label": "different", "_note": "主题1：原创 RAG 论文 vs RAG 综述，是不同论文不应合并"},
+    {"a": "p01", "b": "p07", "label": "different"},
+    {"a": "p07", "b": "p08", "label": "different"},
+    {"a": "p01", "b": "p02", "label": "different"},
+    {"a": "p02", "b": "p04", "label": "different"}
+  ]
+}
