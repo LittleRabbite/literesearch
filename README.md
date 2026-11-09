@@ -24,17 +24,47 @@
 4. **工程可落地**——FastAPI SSE 事件协议 + Next.js 三区式工作台（流程面板/成果四 Tab/审核条）、引用 chip 双向联动、明暗主题、md/bib/xlsx 三格式导出、Zotero 一键入库。
 5. **零成本演示**——`MOCK_LLM=1` 用假 LLM 跑通全流程（检索仍是真实的），无 API Key 也能完整体验产品闭环。
 
-### 技术栈
+**实现要点**：
 
-- LangGraph（多智能体编排/interrupt/断点续跑）
-- DeepSeek（OpenAI 兼容）
-- FastAPI（SSE 流式 + 多用户鉴权 + SQLite 会话持久化）
-- Next.js 16 + zustand
-- MiniLM/bge-m3 嵌入去重
-- CrossRef/arXiv/Semantic Scholar/OpenAlex/ChinaXiv 多源检索
-- Langfuse（评估与实验管理）
+- 工具链：arXiv API / Semantic Scholar / CrossRef / Web of Science（有权限时）→ PDF 下载解析 → 向量化
+- 多 Agent 分工（LangGraph 多智能体）：
+  - **检索 Agent**：多源召回
+  - **筛选 Agent**：按相关性/影响力/时效打分过滤
+  - **综述 Agent**：分主题归纳、对比方法、找 research gap
+  - **核验 Agent**：核对引用真实性（反幻觉关键步骤）
+- 输出结构化综述 + 文献矩阵（Excel）
+
+
+## 技术栈与接口设计
+
+**前端**：Next.js + React + TypeScript；Zustand 管理会话状态；`react-markdown` 渲染综述（自定义 `[n]` chip 组件）；TanStack Table 做文献矩阵；SSE 用原生 `EventSource`。
+
+**后端**：FastAPI，薄封装层，不重新实现逻辑：
+
+```plain
+POST /api/sessions              → 创建任务，返回 {session_id = LangGraph thread_id}
+GET  /api/sessions/{id}/events  → SSE，透传 graph.stream 事件
+                                  （节点进入/退出 + writer 的 token + 各 artifact）
+POST /api/sessions/{id}/feedback → body: {action: approved|rewrite|refetch, comment}
+                                   → update_state + stream(None) 续跑
+GET  /api/sessions/{id}/export?format=md|bib|xlsx
+```
+
+SSE 事件协议（前后端契约）：
+
+```json
+{"type": "node_start", "node": "screening"}
+{"type": "artifact", "node": "screening", "data": {"screened": [...]}}
+{"type": "token", "node": "writer", "content": "近年来..."}
+{"type": "interrupt", "node": "human_review"}        ← 前端据此弹出审核条
+{"type": "done"}
+```
+
 
 ***
+### 系统LangGraph 状态图
+<img width="960" height="912" alt="image" src="https://github.com/user-attachments/assets/403240d0-f3c6-4119-a833-13e9fe57ac71" />
+
 
 ## 配置说明
 
