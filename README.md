@@ -158,17 +158,17 @@ API Key 生成后不会再次完整显示，建议先保存到密码管理器，
 ## 运行命令
 
 ```
-# 后端（在 f:\literesearch 目录）
+# 后端
 .venv\Scripts\python.exe -m uvicorn backend.app.main:app --port 8000
 
-# 前端-开发模式（另开终端，在 f:\literesearch\frontend 目录）
+# 前端-开发模式
 npm run dev
 ```
 
 ### 生产模式（可选）
 
 ```
-# 前端构建 + 启动（在 f:\literesearch\frontend 目录）
+# 前端构建 + 启动
 npm run build
 npm run start
 # 后端同上；注意 SSE 长连接，uvicorn 保持单 worker，不要加 --workers N
